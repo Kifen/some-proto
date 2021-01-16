@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+service AddressService {
+    rpc GetAddress (AddressRequest) returns (AddressResponse) {}
+}
+
+message Empty {}
+
+enum Type {
+        ETH = 0;
+        DOT = 1;
+        BTC = 2;
+}
+
+message AddressRequest {
+    Type type = 1;
+    int32 count = 2;
+}
+
+message AddressResponse {
+    Type type = 1;
+    repeated string addresses = 2;
+}
+
+// comand to generate code from file
+
+// grpc_tools_node_protoc \
+//     --js_out=import_style=commonjs,binary:./definitions/ \
+//     --grpc_out=grpc_js:./definitions \
+//     --proto_path=./protos ./protos/*.proto
